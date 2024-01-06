@@ -1,0 +1,52 @@
+Day 1 Notes (05.01.24):
+-Started Pong demo using Java and libGDX.
+-14:26: Modified "DesktopLauncher.java" to:
+	-Give the game the title of "PongDemo".
+	-Make the game windowed with a resolution of 1280x720.
+	-Use vsync. (Bad for bigger games, but okay for smaller ones)
+-14:49: After some annoyance loading an old pong demo I made in Game Maker, I made two
+sprites for the battons and the ball using the sprites in that old demo for size reference.
+I made the sprites in GraphicsGale:
+	-Created "spr_batton.png".
+	-Created "spr_ball.png".
+	-Saved both files to the assets folder of the PongDemo project.
+-15:30: Created two new classes. One called "Batton" which will be the two battons used by the player(s).
+The other class is "PlayerControls" which will handle the up and down controls of the player:
+	-Created "Batton.java" which handles the player battons.
+	-Created "PlayerControls.java" which handles the controls of the Battons.
+-15:56: Added the creation and updating/drawing of the battons to the main class.
+The up and down controls were the wrong way round so I swapped them.
+Also added the ability to close and exit the game by pressing the escape key.
+	-Updated "PongDemon.java".
+	-Updated "Batton.java".
+	-Updated "PlayerControls.java".
+-16:05: Updated the player controls to be seperate for both battons.
+I forgot to do this so both were moving at the same time. I am an idiot:
+	-Updated "PlayerControls.java". Modified "checkControls" (Now accepts new argument "isSecondPlayer")
+-16:10: Updated the batton class to check if the batton is outside the screen and to stop if it is.
+	-Updated "Batton.java". Modified "update".
+-16:16: Updated player controls to move the battons faster. (Increased movement interger to 400 and created a final variable
+called MOVE_SPEED to represent it)
+	-Updated "PlayerControls.java".
+-16:42: Created new class called "Ball". This will act as the ball.
+However, one problem is that I am not good at maths and so I do not know how
+to give the ball a direction. As in, I do not know how to get the ball to move
+forward 45 degrees apart from manually doing it with the X and Y variables... :(
+Got to keep looking...:
+	-Created "Ball.java".
+-17:32: Updated ball class to move and... USE DIRECTION!
+I don't know what sin and cos do because I'm awful, terrible at maths, but they work!
+Also made it so that ball returns to centre of screen when it goes off the screen.
+Also, a new ball can be spawned by pressing the enter key.
+	-Updated "Ball.java".
+	-Updated "PlayerControls.java". (Temporary controls to be removed (Temporary controls allow balls direction to be changed with the left and right arrow keys)
+	-Updated "PongDemo.java".
+-20:01: Balls now bounce when they hit a batton.
+	-Updated "PongDemo.java".
+	-Updated "Batton.java".
+	-Updated "Ball.java".
+-20:19: Balls can now be removed by pressing H.
+However, this does not follow the tutorial's approach of removing the balls one by one and
+I instead set the entire array of balls to be null. Probably a bad approach, but the tutorial way
+seemingly did nothing????
+	-Updated "PongDemon.java"

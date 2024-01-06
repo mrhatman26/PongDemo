@@ -1,0 +1,29 @@
+Day 2 Notes (06.01.24):
+-13:30: Continuing Pong Demo...
+Trying to figure out why my bounce code is getting the ball to be stuck sometimes...
+-13:57: Hold on, one of my old games in GameMaker has bounce code. Maybe that might help?
+-14:54: No progress made on the bouncing. GameMaker did not help.
+I found a bit of code though that goes "direction = direction * -1;" which supposedly flips the direction.
+The problem I am having is that the direction DOES get flipped, but it flips back immediately and so
+the ball just keeps going in the original direction while vibrating. Not sure how I am going to fix this at all.
+-15:06: Taking a break for a bit. Maybe a break will help me think of the sollution? (Hint: No it won't, it'll make me think of
+stupid sollutions that don't work in the slightest. The answer is probably really, really simple and I'm just too brain dead to think
+of it)
+-15:15: Looks like it was much worse. My direction code is stupid. Direction does affect movement, but an increase of only a few
+decimals is enough to do a 360 degree turn. Also, 0 degrees is up not right. -_-
+Not sure how I'll fix this at all. Also yes, I lied about having a break.
+15:36: Odd, turns out direction barely matters at all? Apart from setting the ball off of course.
+If I convert the speed to speedX and speedY, I can flip one of each to bounce. (By flip, I mean switch between negative and positive)
+So, if the ball bounces on the y axis, I flip speedY. If the ball bounces on the x axis, I flip speedX instead. Both the screen bounce and the batton bounce solved in
+one. It does have problems though. I've seen the ball slide across the bottom at least once with this:
+	-Updated "Ball.java". (Needs cleanup!)
+	-Updated "PongDemo.java". (Needs cleanup!)
+-15:43: I forgot to mention that one problem I am having is that I cannot check ahead of an object along one axis. I can only use this "overlaps" method.
+I say this is a problem because I cannot check if the ball is colliding with the top or the bottom. Just the sides. And so, the ball will go through if this happens.
+I may have founda sollution on StackOverFlow using the alternate "Intersection" class, but I have not tried it yet as I only found it while typing this.
+-16:38: The ball now plays sounds when it bounces or when it goes off the screen. This took me so long to implement because I needed to cut the sounds I found
+into individual files. (The sounds I found were from freesound.org from the original Pong. URL is: freesound.org/people/mickdow/sounds/177409/)
+Next thing to implement is the scores. The battons already have score variables, but they stay at 0. However, I will take an actual break now.
+-16:45: I couldn't help myself to do some more changes. I made it so that the game can be restarted by holding either shift key and R.
+	-Updated "PlayerControls.java".
+
