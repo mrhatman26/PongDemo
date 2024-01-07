@@ -1,0 +1,17 @@
+Day 3 Notes (07.01.24):
+-15:56: Continuing (and maybe finishing? :O) the pong demo...
+-17:04: After a lot of messing around with changing x and y coodinates and then rerunning to check if an object
+is where I want it to be, getting the font for Pong and mathematics in Photoshop, I have finally added the drawing
+of both players' scores. The scores still do not change however. I am quite surprised it took me an hour to implement this...:
+	-Updated "PongDemon.java". (Now disposes some Gdx objects I forgot to dispose)
+	-Updated "Batton.java".
+-17:16: Both players' scores now change depending on which side of the screen the ball goes off.
+If the ball goes off the left side of the screen, the right player gets their score increase by one and vice versa.
+-17:25: The ball now pauses breifly when it is reset just like in actual Pong.
+	-Updated "Ball.java".
+-17:32: If the score for either player is in double digits, the score is drawn a bit more to the left as it looks weird otherwise.
+The players' scores can also only go up to 99. After this, the game will automatically set the score back to 99 if the score goes above 99.
+	-Updated "Batton.java".
+With that, I personally consider this to be done. At a later stage I may add more stuff, but for now, I'm keeping it simple. (As for the bugs...
+Yeah, they exist...)
+Bye bye.
