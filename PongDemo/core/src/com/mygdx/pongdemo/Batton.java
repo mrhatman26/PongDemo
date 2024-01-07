@@ -2,7 +2,11 @@ package com.mygdx.pongdemo;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.math.Rectangle;
+
+import java.awt.*;
 
 public class Batton {
     private Texture sprite;
@@ -50,6 +54,25 @@ public class Batton {
         this.score = newScore;
     }
 
+    public void drawScore(Batch batch, BitmapFont font){
+        if (isSecondPlayer){
+            if (score < 10) {
+                font.draw(batch, String.valueOf(score), 945, 680);
+            }
+            else{
+                font.draw(batch, String.valueOf(score), 793, 680);
+            }
+        }
+        else{
+            if (score < 10) {
+                font.draw(batch, String.valueOf(score), 212, 680);
+            }
+            else{
+                font.draw(batch, String.valueOf(score), 126, 680);
+            }
+        }
+    }
+
     public void update(){
         PlayerControls.checkControls(battonRect, isSecondPlayer);
         if (battonRect.y > 464){
@@ -57,6 +80,9 @@ public class Batton {
         }
         if (battonRect.y < 0){
             battonRect.y = 0;
+        }
+        if (score > 99){
+            score = 99;
         }
     }
 

@@ -8,6 +8,8 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeType;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
@@ -20,6 +22,7 @@ public class PongDemo extends ApplicationAdapter {
 	private Array<Batton> battons;
 	private Array<Ball> balls;
 	private BitmapFont font;
+	private Texture centreTexture;
 
 	@Override
 	public void create () {
@@ -30,7 +33,12 @@ public class PongDemo extends ApplicationAdapter {
 		balls = new Array<Ball>();
 		battons.add(new Batton(false));
 		battons.add(new Batton(true));
-		font = new BitmapFont();
+		FreeTypeFontGenerator fontGenerator = new FreeTypeFontGenerator(Gdx.files.internal("pong_score.ttf"));
+		FreeTypeFontGenerator.FreeTypeFontParameter fontParameters = new FreeTypeFontGenerator.FreeTypeFontParameter();
+		fontParameters.size = 240;
+		font = fontGenerator.generateFont(fontParameters);
+		fontGenerator.dispose();
+		centreTexture = new Texture(Gdx.files.internal("centre.png"));
 	}
 
 	public void spawnBall(){
@@ -44,18 +52,18 @@ public class PongDemo extends ApplicationAdapter {
 	public void render () {
 		ScreenUtils.clear(0, 0, 0, 1);
 		batch.begin();
+		batch.draw(centreTexture, 624, 0);
 		for (Batton batton: battons){
 			batch.draw(batton.getSprite(), batton.getBattonRectX(), batton.getBattonRectY());
+			batton.drawScore(batch, font);
 			batton.update();
 		}
 		if (balls != null) {
 			for (Ball ball : balls) {
 				batch.draw(ball.getSprite(), ball.getBallRectX(), ball.getBallRectY());
-				//font.draw(batch, "Direction: " + String.valueOf(ball.getDirection()), ball.getBallRectX(), ball.getBallRectY() + 60);
-				ball.update();
+				ball.update(battons);
 				for (Batton batton : battons) {
 					if (ball.getBallRect().overlaps(batton.getBattonRect())) {
-						//ball.setDirection(ball.getDirection() - 180);
 						ball.bounce(false);
 						ball.ballSound(false);
 					}
@@ -68,9 +76,6 @@ public class PongDemo extends ApplicationAdapter {
 			spawnBall();
 		}
 		if (Gdx.input.isKeyPressed(Input.Keys.H)){
-            /*for (Iterator<Ball> ball = balls.iterator(); ball.hasNext();){
-				ball.remove();
-			}*/
 			balls = null;
 		}
 	}
@@ -83,5 +88,10 @@ public class PongDemo extends ApplicationAdapter {
 		for (Ball ball: balls){
 			ball.dispose();
 		}
+		font.dispose();
+		batch.dispose();
+		battons = null;
+		balls = null;
+		centreTexture.dispose();
 	}
 }

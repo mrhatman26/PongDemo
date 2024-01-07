@@ -12,6 +12,7 @@ public class DesktopLauncher {
 		config.setWindowedMode(1280, 720);
 		config.useVsync(true);
 		config.setForegroundFPS(60);
+		config.setResizable(false);
 		while (true) {
 			new Lwjgl3Application(new PongDemo(), config);
 		}

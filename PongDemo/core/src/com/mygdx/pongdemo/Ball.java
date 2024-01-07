@@ -18,6 +18,8 @@ public class Ball {
     private int speedY = speedX;
     private int startX = 616;
     private int startY = 336;
+    private int pauseMovementTimer = 45;
+    private boolean pauseMovement = false;
 
     public Ball(){
         this.sprite = new Texture(Gdx.files.internal("spr_ball.png"));
@@ -95,6 +97,7 @@ public class Ball {
     }
 
     public void reset(){
+        pauseMovement = true;
         ballRect.x = startX;
         ballRect.y = startY;
         if (MathUtils.random(0, 1) == 1) {
@@ -116,22 +119,38 @@ public class Ball {
         }
     }
 
-    public void update(){
+    public void update(Array<Batton> battons){
         PlayerControls.temp(this);
         if (ballRect.y < 0 || ballRect.y > 696) {
             bounce(true);
             ballSound(false);
         }
         if (ballRect.x < 0 || ballRect.x > 1280){
+            if (ballRect.x < 0){ //Eww, really sloppy code here.
+                battons.get(1).setScore(battons.get(1).getScore() + 1);
+            }
+            if (ballRect.x > 1280){
+                battons.get(0).setScore(battons.get(0).getScore() + 1);
+            }
             reset();
             ballSound(true);
         }
         correctDirection();
-        ballRect.x += (speedX * (float) Math.sin(direction)) * Gdx.graphics.getDeltaTime();
-        ballRect.y += (speedY * (float) Math.cos(direction)) * Gdx.graphics.getDeltaTime();
+        if (!pauseMovement) {
+            ballRect.x += (speedX * (float) Math.sin(direction)) * Gdx.graphics.getDeltaTime();
+            ballRect.y += (speedY * (float) Math.cos(direction)) * Gdx.graphics.getDeltaTime();
+        }
+        else{
+            pauseMovementTimer--;
+            if (pauseMovementTimer < 1){
+                pauseMovement = false;
+                pauseMovementTimer = 45;
+            }
+        }
     }
 
     public void dispose(){
         sprite.dispose();
+        sounds = null;
     }
 }
