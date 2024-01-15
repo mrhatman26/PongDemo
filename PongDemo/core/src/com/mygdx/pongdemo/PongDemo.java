@@ -62,12 +62,17 @@ public class PongDemo extends ApplicationAdapter {
 			for (Ball ball : balls) {
 				batch.draw(ball.getSprite(), ball.getBallRectX(), ball.getBallRectY());
 				ball.update(battons);
-				for (Batton batton : battons) {
+				/*for (Batton batton : battons) {
 					if (ball.getBallRect().overlaps(batton.getBattonRect())) {
-						ball.bounce(false);
+						if (ball.getBallRectY() >= batton.getBattonRectY() + 260 || ball.getBallRectY() <= batton.getBattonRectY()){
+							ball.bounce(true);
+						}
+						else {
+							ball.bounce(false);
+						}
 						ball.ballSound(false);
 					}
-				}
+				}*/
 			}
 		}
 		batch.end();

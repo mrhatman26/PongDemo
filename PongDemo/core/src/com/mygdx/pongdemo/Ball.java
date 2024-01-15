@@ -85,6 +85,8 @@ public class Ball {
             speedX *= -1;
         }
         correctDirection();
+        ballRect.x += (speedX * (float) Math.sin(direction)) * Gdx.graphics.getDeltaTime();
+        ballRect.y += (speedY * (float) Math.cos(direction)) * Gdx.graphics.getDeltaTime();
     }
 
     public void correctDirection(){
@@ -137,8 +139,24 @@ public class Ball {
         }
         correctDirection();
         if (!pauseMovement) {
-            ballRect.x += (speedX * (float) Math.sin(direction)) * Gdx.graphics.getDeltaTime();
-            ballRect.y += (speedY * (float) Math.cos(direction)) * Gdx.graphics.getDeltaTime();
+            for (Batton batton: battons){
+                if (!ballRect.overlaps(batton.getBattonRect())){
+                    ballRect.x += (speedX * (float) Math.sin(direction)) * Gdx.graphics.getDeltaTime();
+                    ballRect.y += (speedY * (float) Math.cos(direction)) * Gdx.graphics.getDeltaTime();
+                }
+                else{
+                    if (ballRect.y >= batton.getBattonRectY() + 260 || ballRect.y <= batton.getBattonRectY()){
+                        bounce(true);
+                    }
+                    else {
+                        bounce(false);
+                    }
+                    ballSound(false);
+                }
+                //Try setting saving the position of the ball before the collision is detected and then
+                //use new position variables when collision IS detected to see which axis was moved along more.
+                //Could help fix the collision issue on the y axis?
+            }
         }
         else{
             pauseMovementTimer--;
