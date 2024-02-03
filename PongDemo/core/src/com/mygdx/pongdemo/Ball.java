@@ -2,6 +2,7 @@ package com.mygdx.pongdemo;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
@@ -12,6 +13,7 @@ public class Ball {
     private Texture sprite;
     private Rectangle ballRect;
     private Array<Sound> sounds;
+    public float[] spriteColour;
     private float direction;
     //private int speed = 100;//600;
     private int speedX = 600;
@@ -50,7 +52,10 @@ public class Ball {
         this.sounds.add(Gdx.audio.newSound(Gdx.files.internal("bounceJ.wav")));
         this.sounds.add(Gdx.audio.newSound(Gdx.files.internal("fallA.wav")));
         this.sounds.add(Gdx.audio.newSound(Gdx.files.internal("fallB.wav")));
-        //Eww
+        this.spriteColour = new float[3];
+        this.spriteColour[0] = 1.0f;
+        this.spriteColour[1] = 1.0f;
+        this.spriteColour[2] = 1.0f;
     }
 
     public Texture getSprite(){
@@ -87,6 +92,9 @@ public class Ball {
         correctDirection();
         ballRect.x += (speedX * (float) Math.sin(direction)) * Gdx.graphics.getDeltaTime();
         ballRect.y += (speedY * (float) Math.cos(direction)) * Gdx.graphics.getDeltaTime();
+        spriteColour[0] = MathUtils.random(0.5f, 1.0f);
+        spriteColour[1] = MathUtils.random(0.5f, 1.0f);
+        spriteColour[2] = MathUtils.random(0.5f, 1.0f);
     }
 
     public void correctDirection(){

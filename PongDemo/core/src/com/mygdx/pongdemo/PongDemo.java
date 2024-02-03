@@ -4,6 +4,7 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -60,7 +61,9 @@ public class PongDemo extends ApplicationAdapter {
 		}
 		if (balls != null) {
 			for (Ball ball : balls) {
+				batch.setColor(ball.spriteColour[0], ball.spriteColour[1], ball.spriteColour[2], 1f);
 				batch.draw(ball.getSprite(), ball.getBallRectX(), ball.getBallRectY());
+				batch.setColor(Color.WHITE);
 				ball.update(battons);
 				/*for (Batton batton : battons) {
 					if (ball.getBallRect().overlaps(batton.getBattonRect())) {
